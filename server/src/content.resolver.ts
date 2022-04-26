@@ -1,7 +1,6 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Contents } from '@prisma/client';
 import { PrismaService } from './prisma.service';
-import GraphQLUpload from 'apollo-server-express';
 
 @Resolver()
 export class ContentResolver {

@@ -1,25 +1,48 @@
-import AWS from 'aws-sdk';
+const AWS = require('aws-sdk');
 
-type S3UploadConfig = {
-  accessKeyId: string;
-  secretAccessKey: string;
-  destinationBucketName: string;
-  region?: string;
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_ID,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  region: process.env.AWS_REGION,
+});
+
+const s3 = new AWS.S3({ region: process.env.AWS_REGION });
+
+const s3DefaultParams = {
+  ACL: 'public-read',
+  Bucket: process.env.S3_BUCKET_NAME,
+  Conditions: [
+    ['content-length-range', 0, 1024000], // 1 Mb
+    { acl: 'public-read' },
+  ],
 };
 
-export class AWSS3Uploader {
-  private s3: AWS.S3;
-  public config: S3UploadConfig;
+export const handleFileUpload = async (file) => {
+  const { createReadStream, filename } = await file['file'];
 
-  constructor(config: S3UploadConfig) {
-    AWS.config = new AWS.Config();
-    AWS.config.update({
-      accessKeyId: process.env.S3_ACCESS_KEY_ID,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-      region: 'ap-northeast-2',
-    });
+  return new Promise((resolve, reject) => {
+    s3.upload(
+      {
+        ...s3DefaultParams,
+        Body: createReadStream(),
+        Key:
+          Math.floor(Math.random() * 1000).toString() +
+          Date.now() +
+          '.' +
+          filename.split('.').pop(),
+      },
 
-    this.s3 = new AWS.S3();
-    this.config = config;
-  }
-}
+      (err, data) => {
+        if (err) {
+          console.log('error uploading...', err);
+          reject(err);
+        } else {
+          console.log('successfully uploaded file...', data);
+          resolve(data);
+          console.log(resolve);
+          console.log('데이타 보냄');
+        }
+      },
+    );
+  });
+};

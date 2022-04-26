@@ -15,7 +15,7 @@ model Users {
   id Int @default(autoincrement()) @id
   email  String @unique
   password String
-  nickname String
+  nickName String
   img  String?
   intro String?
   recipes Recipes[]
@@ -50,18 +50,9 @@ model Contents{
 }
 
 
-// model Metarials {
-//   id Int @default(autoincrement()) @id
-//   name String @unique
-//   img String
-//   uses Uses[]
-// }
+model Materials {
+  id Int @default(autoincrement()) @id
+  name String 
+  img String
+}
 
-
-// model Uses {
-//   id Int @default(autoincrement()) @id
-//   recipe Recipes? @relation(fields: [recipeId],references: [id], onDelete: Cascade)
-//   recipeId Int
-//   metarial Metarials? @relation(fields: [metarialName],references: [name], onDelete: Cascade)
-//   metarialName String
-// }

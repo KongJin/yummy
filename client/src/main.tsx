@@ -1,11 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import React from "react";
+import ReactDOM from "react-dom";
+import { ApolloProvider } from "@apollo/react-hooks";
+import App from "./Components/App";
+import Apollo from "./Components/Apollo";
+import { RecoilRoot } from "recoil";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+  <ApolloProvider client={Apollo}>
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  </ApolloProvider>,
+
+  document.getElementById("root")
+);

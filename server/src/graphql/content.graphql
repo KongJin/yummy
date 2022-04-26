@@ -1,20 +1,20 @@
 type Content {
   id: Int
   img: String
-  explain: String
-  recipeId: Int
+  explain: String!
+  recipeId: Int!
 }
 
 input inputContent {
   img: String
-  explain: String
-  recipeId: Int
+  explain: String!
+  recipeId: Int!
 }
 
 type Query {
-  getRecipeContent(recipeId: Int): [Content]
+  getRecipeContent(recipeId: Int!): [Content]
 }
 type Mutation {
-  createContent(info: [inputContent]): Int
-  updateContent(info: [inputContent]): Int
+  createContent(info: [inputContent]!): Int
+  updateContent(info: [inputContent]!): Int
 }

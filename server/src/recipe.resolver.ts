@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Recipes } from '@prisma/client';
 import { PrismaService } from './prisma.service';
 
@@ -16,7 +16,12 @@ export class RecipeResolver {
   }
 
   @Query()
-  async getRecipe(@Args('id') id: number): Promise<Recipes> {
+  async getRecipe(
+    @Args('id') id: number,
+    @Context('token') token: any,
+  ): Promise<Recipes> {
+    console.log('token');
+    console.log(token);
     return this.prisma.recipes.findUnique({
       where: { id },
       include: {
