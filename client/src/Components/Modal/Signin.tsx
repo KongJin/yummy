@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { modal, signUp, token } from "../state/state";
+import { modal, signUp, token } from "../../state/state";
 import {
   AlertBox,
   Container,
@@ -15,7 +15,7 @@ import {
   InInputWrap,
   ButtonWrap,
   InButton,
-} from "../styled/modal";
+} from "../../styled/modal";
 
 const postLogin = gql`
   mutation ($email: String!, $password: String!) {
@@ -31,33 +31,33 @@ function Signin() {
   const setToken = useSetRecoilState(token);
 
   const setModal = useSetRecoilState(modal);
-  const [login, { data, loading, error }] = useMutation(postLogin);
 
   const signUpClick = useSetRecoilState(signUp);
   const [errorMessage, setErrorMessage] = useState("");
   const handleInputValue = (key: any) => (e: any) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
+  let [postlogin] = useMutation(postLogin);
 
   const handleLogin = async () => {
     const { email, password } = loginInfo;
-    console.log(email, password);
     if (Object.values(loginInfo).includes("")) {
       setErrorMessage("모든 항목을 입력해 주세요.");
       return;
     }
-    login({
+
+    const { data = { login: "" } } = await postlogin({
       variables: {
         email,
         password,
       },
     });
 
-    if (!data?.login) {
+    if (data.login !== "") {
       setModal(false);
-      setLoginInfo({ email: "", password: "" });
       setToken(data.login);
     }
+    setLoginInfo({ email: "", password: "" });
   };
 
   return (

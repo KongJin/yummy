@@ -1,10 +1,11 @@
-import { ButtonWrap, Container, MaterialListContainer, RecipeButton } from "../styled/materialList";
+import { ButtonWrap, Container, MaterialListContainer, RecipeButton } from '../styled/materialList';
 
-import { gql, useQuery } from "@apollo/client";
-import { material } from "../state/typeDefs";
-import Material from "../Components/Material";
-import { materialList } from "../state/state";
-import { useSetRecoilState } from "recoil";
+import { gql, useQuery } from '@apollo/client';
+import { material } from '../state/typeDefs';
+import { allMaterials, materialList } from '../state/state';
+import { useSetRecoilState } from 'recoil';
+import Material from '../Components/Search/Material';
+import { useEffect } from 'react';
 
 const Get_Materials = gql`
   query {
@@ -18,7 +19,17 @@ const Get_Materials = gql`
 
 const Search = () => {
   let { loading, data, error } = useQuery(Get_Materials);
+
   const setMaterialList = useSetRecoilState(materialList);
+  const setAllMaterails = useSetRecoilState(allMaterials);
+
+  useEffect(() => {
+    const allList = data?.getAllMaterial.map((material: { name: string }) => {
+      return material.name;
+    });
+
+    setAllMaterails(allList);
+  });
 
   let list: string[] = [];
 

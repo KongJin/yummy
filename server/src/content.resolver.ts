@@ -16,12 +16,27 @@ export class ContentResolver {
   }
 
   @Mutation()
-  async createContent(@Args('info') info: Contents[]): Promise<Number> {
-    for (let i of info) {
-      await this.prisma.contents.create({ data: i });
+  async createContent(
+    @Args('info') info: Contents[],
+    @Args('recipeId') recipeId: number,
+  ): Promise<boolean> {
+    try {
+      for (let content of info) {
+        await this.prisma.contents.create({
+          data: {
+            recipe: {
+              connect: { id: recipeId },
+            },
+            img: content.img,
+            explain: content.explain,
+          },
+        });
+      }
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
     }
-
-    return;
   }
 
   @Mutation()

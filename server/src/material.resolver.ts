@@ -8,12 +8,20 @@ export class MaterialResolver {
 
   @Query()
   async getAllMaterial() {
-    return this.prisma.materials.findMany({});
+    try {
+      return this.prisma.materials.findMany({});
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   @Mutation()
   async createMaterial(@Args('info') info: Materials): Promise<Materials> {
-    return this.prisma.materials.create({ data: info });
+    try {
+      return this.prisma.materials.create({ data: info });
+    } catch (err) {
+      console.log(err);
+    }
   }
   @Mutation()
   async updateMaterial(@Args('info') info: Materials): Promise<Materials> {

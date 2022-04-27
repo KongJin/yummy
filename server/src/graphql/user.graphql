@@ -30,7 +30,7 @@ input updateUser {
 
 type Query {
   getAllUser: [User]
-  getUser(id: Int!): User
+  getUser: User
 }
 
 type Mutation {

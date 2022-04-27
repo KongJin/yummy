@@ -37,8 +37,9 @@ model Recipes {
   userId Int 
   contents Contents[]
   likes Likes[]
+  materials String
   // uses Uses[]
-  metarials String
+
 }
 
 model Contents{

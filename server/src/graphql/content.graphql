@@ -3,18 +3,18 @@ type Content {
   img: String
   explain: String!
   recipeId: Int!
+  recipe: Recipe
 }
 
 input inputContent {
   img: String
   explain: String!
-  recipeId: Int!
 }
 
 type Query {
   getRecipeContent(recipeId: Int!): [Content]
 }
 type Mutation {
-  createContent(info: [inputContent]!): Int
+  createContent(info: [inputContent]!, recipeId: Int!): Boolean
   updateContent(info: [inputContent]!): Int
 }

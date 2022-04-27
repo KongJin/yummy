@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   max-width: 1400px;
@@ -27,7 +27,7 @@ type materialImg = {
 export const MaterialName = styled.div<materialImg>`
   background-color: #0005;
   background-image: ${(props) => `url(${props.image})`};
-  background-blend-mode: ${(props) => (props.state ? "darken" : "screen")};
+  background-blend-mode: ${(props) => (props.state ? 'darken' : 'screen')};
   background-size: 100% 100%;
   color: white;
   display: flex;

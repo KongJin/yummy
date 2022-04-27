@@ -1,10 +1,22 @@
-import { useRecoilValue } from "recoil";
-import { materialList } from "../state/state";
+import { materialList } from '../state/state';
+import { Container, FoodImg, HatImg, Title, KnifeImg, TitleWrapper } from '../styled/recipeList';
+import Tag from '../Components/Recipe/Tag';
+import chefHat from '../assets/chefHat.png';
+import kitchenKinfe from '../assets/kitchenKnife.png';
+import Food from '../Components/Recipe/Food';
 
 const RecipeList = () => {
-  const list = useRecoilValue(materialList);
-  console.log(list);
-  return <div>RecipeList</div>;
+  return (
+    <Container>
+      <HatImg src={chefHat} />
+      <TitleWrapper>
+        <Title>내가 선택한 재료</Title>
+        <KnifeImg src={kitchenKinfe} />
+      </TitleWrapper>
+      <Tag />
+      <Food />
+    </Container>
+  );
 };
 
 export default RecipeList;

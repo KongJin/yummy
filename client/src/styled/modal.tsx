@@ -58,6 +58,8 @@ export const ImgFile = styled.input`
   opacity: 0;
 `;
 
+export const SignInInput = styled.input``;
+
 export const InInputWrap = styled.div`
   display: flex;
   justify-content: space-between;
