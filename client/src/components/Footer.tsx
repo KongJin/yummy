@@ -30,13 +30,13 @@ const Footer = () => {
           <Name href="https://github.com/KongJin" target="_blank">
             진공
           </Name>
-          <Role>BACK-END</Role>
+          <Role>FULL-STACK</Role>
         </MemberInfoBox>
         <MemberInfoBox>
           <Name href="https://github.com/StrummingDown" target="_blank">
             윤대규
           </Name>
-          <Role>BACK-END</Role>
+          <Role>FULL-STACK</Role>
         </MemberInfoBox>
       </TeamMember>
       <Copyright>copyright © 2022 yummy all rights reserved</Copyright>
